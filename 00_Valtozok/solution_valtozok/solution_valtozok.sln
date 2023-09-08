@@ -3,7 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feladat_00", "Feladat_00\Feladat_00.csproj", "{AC195B18-E72F-446E-8055-A30CAFB5BCFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feladat_01", "Feladat_01\Feladat_01.csproj", "{19309074-0C64-478B-9102-52223041628C}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC195B18-E72F-446E-8055-A30CAFB5BCFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC195B18-E72F-446E-8055-A30CAFB5BCFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC195B18-E72F-446E-8055-A30CAFB5BCFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC195B18-E72F-446E-8055-A30CAFB5BCFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19309074-0C64-478B-9102-52223041628C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19309074-0C64-478B-9102-52223041628C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19309074-0C64-478B-9102-52223041628C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19309074-0C64-478B-9102-52223041628C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
