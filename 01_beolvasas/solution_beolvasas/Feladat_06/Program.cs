@@ -11,5 +11,3 @@ Console.Write("Please type in the name of the lead actor: ");
 string leadActorName = Console.ReadLine();
 
 Console.WriteLine($"{releaseYear}-ban {directorName} rendezésében megjelent a/az {movieTitle} című film {leadActorName} főszereplésével.");
-
-Console.ReadKey();
