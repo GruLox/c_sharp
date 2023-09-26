@@ -10,7 +10,7 @@ string dayName = dayIndex switch
     5 => "Friday",
     6 => "Saturday",
     7 => "Sunday",
-    _ => "there is no a day with that index"
+    _ => "there is not a day with that index"
 };
 
 Console.WriteLine(dayName);

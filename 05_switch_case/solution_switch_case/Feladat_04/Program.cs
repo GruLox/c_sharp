@@ -14,8 +14,6 @@ double? result = operatorInputted switch
     _ => null,
 };
 
-// result is null ? (Console.WriteLine()) : (Console.WriteLine());
-
 if (result is not null)
 {
     Console.WriteLine($"The result is {result}");

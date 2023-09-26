@@ -22,5 +22,5 @@ if (result is not null)
 } 
 else
 {
-    Console.WriteLine($"Invalid operation");
+    Console.WriteLine("Invalid operation");
 }
