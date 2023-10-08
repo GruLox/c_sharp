@@ -2,7 +2,7 @@
 int secondNumber = 0;
 int step = 0;
 
-do
+while (!(secondNumber > firstNumber) || secondNumber - firstNumber <= step)
 {
     Console.Write("Kérem adjon meg egy számot: ");
     string input = Console.ReadLine();
@@ -13,8 +13,7 @@ do
     Console.Write("Kérem adjon meg egy lépésközt, amely kisebb mint a két szám különbsége: ");
     input = Console.ReadLine();
     int.TryParse(input, out step);
-
-} while (!(secondNumber > firstNumber) || secondNumber - firstNumber <= step);
+}
 
 for (int i = secondNumber; i >= firstNumber; i -= step)
 {

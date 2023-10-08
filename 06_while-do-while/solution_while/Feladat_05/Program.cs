@@ -8,7 +8,7 @@ do
     string temp = Console.ReadLine();
     int.TryParse(temp, out limit);
 
-} while (limit == 0 || limit < 100);
+} while (limit < 100);
 
 do
 {
@@ -22,9 +22,4 @@ do
         inputNumber++;
         Console.WriteLine($"A jelenlegi összeg: {sum}, {inputNumber}. bevitelnél tart ");
     }
-    else
-    {
-        Console.WriteLine("Nem számot adott meg");
-    }
-
 } while (sum <= limit);

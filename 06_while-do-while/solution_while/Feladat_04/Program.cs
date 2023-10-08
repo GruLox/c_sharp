@@ -1,7 +1,6 @@
 ﻿int sum = 0;
 int inputNumber = 0;
 
-
 do
 {
     int numberToAdd;
@@ -13,10 +12,6 @@ do
         sum += numberToAdd;
         inputNumber++;
         Console.WriteLine($"A jelenlegi összeg: {sum}, {inputNumber}. bevitelnél tart ");
-    }
-    else
-    {
-        Console.WriteLine("Nem számot adott meg");
     }
 
 }  while (sum <= 100);

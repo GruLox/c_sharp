@@ -13,8 +13,4 @@ while (sum <= 100)
         inputNumber++;
         Console.WriteLine($"A jelenlegi összeg: {sum}, {inputNumber}. bevitelnél tart");
     }
-    else
-    {
-        Console.WriteLine("Nem számot adott meg");
-    }
 }

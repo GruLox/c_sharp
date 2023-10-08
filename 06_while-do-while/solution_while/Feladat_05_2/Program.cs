@@ -2,7 +2,7 @@
 int inputNumber = 0;
 int limit = 0;
 
-while (limit == 0 || limit < 100)
+while (limit < 100)
 {
     Console.Write("Kérem adja meg a határértéket: ");
     string temp = Console.ReadLine();
@@ -20,9 +20,5 @@ while (sum <= limit)
         sum += numberToAdd;
         inputNumber++;
         Console.WriteLine($"A jelenlegi összeg: {sum}, {inputNumber}. bevitelnél tart ");
-    }
-    else
-    {
-        Console.WriteLine("Nem számot adott meg");
     }
 }
