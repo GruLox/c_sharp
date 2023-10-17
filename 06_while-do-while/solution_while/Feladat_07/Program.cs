@@ -1,20 +1,33 @@
 ﻿int firstNumber = 0;
 int secondNumber = 0;
 int step = 0;
+bool isNumber = false;
 
 do
 {
     Console.Write("Kérem adjon meg egy számot: ");
     string input = Console.ReadLine();
-    int.TryParse(input, out firstNumber);
-    Console.Write("Kérem adjon meg egy nagyobb számot: ");
-    input = Console.ReadLine();
-    int.TryParse(input, out secondNumber);
-    Console.Write("Kérem adjon meg egy lépésközt, amely kisebb mint a két szám különbsége: ");
-    input = Console.ReadLine();
-    int.TryParse(input, out step);
+    isNumber = int.TryParse(input, out firstNumber);
+} while (!isNumber);
 
-} while (!(secondNumber > firstNumber) || secondNumber - firstNumber <= step);
+isNumber = false;
+do
+{
+    Console.Write("Kérem adjon meg egy nagyobb számot: ");
+    string input = Console.ReadLine();
+    isNumber = int.TryParse(input, out secondNumber);
+} while (!isNumber || firstNumber >= secondNumber);
+
+
+isNumber = false;
+do
+{
+    Console.Write("Kérem adjon meg egy számot: ");
+    string input = Console.ReadLine();
+    isNumber = int.TryParse(input, out step);
+} while (!isNumber || secondNumber - firstNumber <= step);
+
+
 
 for (int i = secondNumber; i >= firstNumber; i -= step)
 {

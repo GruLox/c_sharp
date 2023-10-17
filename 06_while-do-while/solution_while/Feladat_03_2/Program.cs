@@ -3,10 +3,10 @@
 int randomNumber = random.Next(0, 10);
 Console.WriteLine(randomNumber);
 int guess = int.MaxValue;
-bool isNumber;
+bool isNumber = false;
 int tries = 5;
 
-while (tries > 0 && guess != randomNumber)
+while (tries > 0 && guess != randomNumber || !isNumber)
 {
     Console.Write("Próbálja meg kitalálni a random számot: ");
     string input = Console.ReadLine();

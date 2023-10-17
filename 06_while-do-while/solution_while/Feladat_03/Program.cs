@@ -3,7 +3,7 @@
 int randomNumber = random.Next(0, 10);
 Console.WriteLine(randomNumber);
 int guess;
-bool isNumber;
+bool isNumber = false;
 int tries = 5;
 
 do
@@ -15,6 +15,6 @@ do
     tries--;
     Console.WriteLine($"{tries} próbálkozása maradt");
 
-} while (tries > 0 && guess != randomNumber);
+} while (tries > 0 && guess != randomNumber || !isNumber);
 
 Console.WriteLine(tries == 0 ? "Vesztett" : "Győzött");

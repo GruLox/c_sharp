@@ -1,17 +1,22 @@
 ﻿int evenNumber = 0;
 int oddNumber = 0;
+bool isNumber = false;
 
 do
 {
     Console.Write("Kérem adjon meg egy páros számot: ");
     string input = Console.ReadLine();
-    int.TryParse(input, out evenNumber);
+    isNumber = int.TryParse(input, out evenNumber);
 
+} while (!isNumber || evenNumber % 2 != 0);
+
+isNumber = false;
+do
+{
     Console.Write("Kérem adjon meg egy nagyobb páratlan számot: ");
-    input = Console.ReadLine();
-    int.TryParse(input, out oddNumber);
-
-} while (evenNumber % 2 != 0 || oddNumber % 2 != 1 || oddNumber <= evenNumber);
+    string input = Console.ReadLine();
+    isNumber = int.TryParse(input, out oddNumber);
+} while (!isNumber || oddNumber % 2 != 1 || oddNumber <= evenNumber);
 
 Random random = new Random();
 int randomNumber = random.Next(evenNumber, oddNumber + 1);

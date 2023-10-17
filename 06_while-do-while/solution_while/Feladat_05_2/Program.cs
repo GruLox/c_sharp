@@ -11,10 +11,9 @@ while (limit < 100)
 
 while (sum <= limit)
 {
-    int numberToAdd;
     Console.Write("Kérem adjon meg egy számot: ");
     string input = Console.ReadLine();
-    bool isNumber = int.TryParse(input, out numberToAdd);
+    bool isNumber = int.TryParse(input, out int numberToAdd);
     if (isNumber)
     {
         sum += numberToAdd;
