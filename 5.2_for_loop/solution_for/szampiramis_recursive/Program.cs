@@ -3,10 +3,10 @@ int size = 0;
 
 size = GetSize();
 
-BuildPyramid(1, size);
+BuildPyramid(size);
 
 
-void BuildPyramid(int n, int size)
+void BuildPyramid(int size, int n = 1)
 {
     if (n - 1 == size) return;
 
@@ -14,9 +14,11 @@ void BuildPyramid(int n, int size)
     {
         Console.Write($"{i}\t");
     }
+
+    // \n
     Console.WriteLine();
 
-    BuildPyramid(n + 1, size);
+    BuildPyramid(size, n + 1);
 }
 
 int GetSize()
