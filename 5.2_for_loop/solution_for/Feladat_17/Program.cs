@@ -1,8 +1,7 @@
 ﻿bool isNumber = false;
 int intervallStart = 0;
 int intervallEnd = 0;
-int evenSum = 0;
-int oddSum = 0;
+List<int> numbers = new List<int>();
 
 do
 {
@@ -19,15 +18,17 @@ do
     isNumber = int.TryParse(input, out intervallEnd);
 } while (!isNumber || intervallStart >= intervallEnd);
 
+
 for (int i = intervallStart; i <= intervallEnd; i++)
 {
-    if (i % 2 == 0) evenSum += i;
-    else oddSum += i;
+    numbers.Add(i);
 }
 
-double average = (double)(evenSum + oddSum) / 2;
+double average = numbers.Average();
 
-Console.WriteLine($"Az intervallumban a páros és páratlan számok összegének átlaga: {average}");
+// double average = (intervallEnd + intervallStart) / 2
+
+Console.WriteLine($"Az intervallumban található számok átlaga: {average}");
 
 
 
