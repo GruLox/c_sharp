@@ -5,6 +5,9 @@ size = GetSize();
 
 BuildPyramid(size);
 
+// Console.Clear
+// ház rajzolás bónusz 5-ös
+
 
 void BuildPyramid(int size, int n = 1)
 {
