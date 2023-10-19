@@ -1,7 +1,7 @@
 ﻿bool isNumber = false;
 int intervallStart = 0;
 int intervallEnd = 0;
-int countOfDivisibleBy5 = 0;
+int countOfDivisibleBy3 = 0;
 
 do
 {
@@ -18,12 +18,13 @@ do
     isNumber = int.TryParse(input, out intervallEnd);
 } while (!isNumber || intervallStart >= intervallEnd);
 
-for (int i = intervallStart; i <= intervallEnd; i++)
+if (intervallStart % 3 != 0) intervallStart += (intervallStart % 3);
+for (int i = intervallStart; i <= intervallEnd; i += 3)
 {
-    if (i % 3 == 0 && i != 0) countOfDivisibleBy5++;
+    countOfDivisibleBy3++;
 }
 
-Console.WriteLine($"Az intervallumban a 3-mal osztható számok száma: {countOfDivisibleBy5}");
+Console.WriteLine($"Az intervallumban a 3-mal osztható számok száma: {countOfDivisibleBy3}");
 
 
 

@@ -24,7 +24,7 @@ for (int i = intervallStart; i <= intervallEnd; i++)
     numbers.Add(i);
 }
 
-double average = numbers.Average();
+double average = numbers.Average(x => x);
 
 // double average = (intervallEnd + intervallStart) / 2
 

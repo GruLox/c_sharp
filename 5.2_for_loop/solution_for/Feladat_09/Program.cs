@@ -17,9 +17,10 @@ do
     isNumber = int.TryParse(input, out intervallEnd);
 } while (!isNumber || intervallStart <= intervallEnd);
 
-for (int i = intervallStart; i >= intervallEnd; i--)
+if (intervallStart % 2 == 1) intervallStart--;
+for (int i = intervallStart; i >= intervallEnd; i -= 2)
 {
-    if (Math.Abs(i) % 2 == 0) Console.WriteLine(i);
+    Console.WriteLine(i);
 }
 
 

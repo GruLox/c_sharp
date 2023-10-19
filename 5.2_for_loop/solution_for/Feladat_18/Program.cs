@@ -18,11 +18,11 @@ do
     isNumber = int.TryParse(input, out intervallEnd);
 } while (!isNumber || intervallStart >= intervallEnd);
 
-
+int signChanger = 1;
 for (int i = 0, number = intervallStart; i <= intervallEnd - intervallStart; i++, number++)
 {
-    if ((i + 1) % 2 == 1) result += number;
-    else result -= number;
+    result += signChanger * i;
+    signChanger *= -1;
 }
 
 Console.WriteLine($"Az eredmény: {result}");

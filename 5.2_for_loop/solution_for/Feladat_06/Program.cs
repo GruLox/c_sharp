@@ -1,4 +1,4 @@
-﻿for (int i = -11; i < 12; i++)
+﻿for (int i = -10; i < 12; i+=2)
 {
-    if (Math.Abs(i) % 2 == 1) Console.WriteLine(i);
+    Console.WriteLine(i);
 }

@@ -1,4 +1,4 @@
-﻿for (int i = 10; i > -11; i--)
+﻿for (int i = 10; i > -11; i -= 2)
 {
-    if (i % 2 == 0) Console.WriteLine(i);
+   Console.WriteLine(i);
 }
