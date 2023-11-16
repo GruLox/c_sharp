@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feladat_00", "Feladat_00\Feladat_00.csproj", "{D45DD727-2D31-471F-BC83-8153F9F2251A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feladat_00", "Feladat_00\Feladat_00.csproj", "{D45DD727-2D31-471F-BC83-8153F9F2251A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOLibrary", "IOLibrary\IOLibrary.csproj", "{9ECD4FAE-FFE2-43E3-8769-94905CB5C9AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IOLibrary", "IOLibrary\IOLibrary.csproj", "{9ECD4FAE-FFE2-43E3-8769-94905CB5C9AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feladat_01", "Feladat_01\Feladat_01.csproj", "{417D27FA-47E3-4C81-8F5A-4BA5E6766C3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feladat_001", "Feladat_001\Feladat_001.csproj", "{6634D032-D7B4-4180-8E6F-F3047077FF58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feladat_02", "Feladat_02\Feladat_02.csproj", "{6637FEB9-A1DC-4CEB-970E-C22AACEDD530}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{9ECD4FAE-FFE2-43E3-8769-94905CB5C9AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ECD4FAE-FFE2-43E3-8769-94905CB5C9AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9ECD4FAE-FFE2-43E3-8769-94905CB5C9AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{417D27FA-47E3-4C81-8F5A-4BA5E6766C3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{417D27FA-47E3-4C81-8F5A-4BA5E6766C3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{417D27FA-47E3-4C81-8F5A-4BA5E6766C3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{417D27FA-47E3-4C81-8F5A-4BA5E6766C3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6634D032-D7B4-4180-8E6F-F3047077FF58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6634D032-D7B4-4180-8E6F-F3047077FF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6634D032-D7B4-4180-8E6F-F3047077FF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6634D032-D7B4-4180-8E6F-F3047077FF58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6637FEB9-A1DC-4CEB-970E-C22AACEDD530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6637FEB9-A1DC-4CEB-970E-C22AACEDD530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6637FEB9-A1DC-4CEB-970E-C22AACEDD530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6637FEB9-A1DC-4CEB-970E-C22AACEDD530}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

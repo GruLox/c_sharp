@@ -16,7 +16,7 @@ int numberCount = 1;
 for (int i = 0; i < size; i++)
 {
     tabCount = ((size * 2) - numberCount) / 2;
-    tabString = new string('\t', tabCount);
+    tabString = new String('\t', tabCount);
     Console.Write(tabString);
     for (int j = 1; j <= numberCount; j++)
     {
