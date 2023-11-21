@@ -1,7 +1,4 @@
-﻿using IOLibrary;
-
-
-double celsius = ExtendedConsole.ReadDouble("Kérem adja meg a hőmérsékletet Celsiusban");
+﻿double celsius = ExtendedConsole.ReadDouble("Kérem adja meg a hőmérsékletet Celsiusban");
 
 char unit;
 do
@@ -14,6 +11,6 @@ do
 while (unit != 'F' && unit != 'K');
 
 
-double convertedResult = unit == 'K' ? Math.CelsiusToKelvin(celsius) : Math.CelsiusToFahrenheit(celsius);
+double convertedResult = unit == 'K' ? MathFunctions.CelsiusToKelvin(celsius) : MathFunctions.CelsiusToFahrenheit(celsius);
 
 Console.WriteLine($"Az átváltott hőmérséklet: {convertedResult} {unit}");
