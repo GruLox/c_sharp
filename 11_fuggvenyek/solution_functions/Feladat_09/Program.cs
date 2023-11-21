@@ -13,9 +13,18 @@ Currency currency;
 do
 {
     string input = ExtendedConsole.ReadString("Kérem adja meg a cél valutát (USD, CHF, JPY): ");
-    Enum.TryParse(input, true, out isCurrency);
+    isCurrency = Enum.TryParse(input, true, out isCurrency);
 
 } while (!isCurrency);
+
+double convertedValue = switch currency {
+    Currency.USD => eur * USD,
+    Currency.CHF => eur * CHF,
+    Currency.JPY => eur * JPY,
+};
+
+Console.WriteLine($"{huf} HUF = {eur} EUR");
+Console.WriteLine($"{huf} HUF = {convertedValue} {currency}");
 
 
 public enum Currency
