@@ -51,6 +51,49 @@ public static class ExtendedConsole
         return number;
     }
 
+    public static int ReadInteger(string prompt, int max, int min)
+    {
+        bool isNumber;
+        int number;
+
+        do
+        {
+            Console.Write(prompt);
+            string text = Console.ReadLine();
+            isNumber = int.TryParse(text, out number);
+
+            if (number > max)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"A megadott szám nem lehet nagyobb mint {max}");
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("A folytatáshoz nyomja meg bármely gombot.");
+
+                Console.ReadKey();
+
+                Console.ResetColor();
+            }
+            else if (number < min)
+            {
+                if (number > max)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"A megadott szám nem lehet kisebb mint {min}");
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("A folytatáshoz nyomja meg bármely gombot.");
+
+                    Console.ReadKey();
+
+                    Console.ResetColor();
+                }
+            }
+        } while (!isNumber ||  number <= min || number >= max);
+
+        return number;
+    }
+
     public static double ReadDouble(string prompt)
     {
         bool isNumber;
