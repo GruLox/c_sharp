@@ -7,18 +7,19 @@ public class Worker
 
     public string Name { get; set; }
     public int HoursWorked { get; set; }
-    public double Salary => CalculateSalary();
-    
+
+    public double Salary
+    {
+        get
+        {
+            return HoursWorked <= 40 ? HoursWorked * BASE_WAGE : 40 * BASE_WAGE + (HoursWorked - 40) * OVERTIME_WAGE;
+        }
+    }
 
     public Worker(string name, int hoursWorked)
     {
         Name = name;
         HoursWorked = hoursWorked;
-    }
-
-    private double CalculateSalary()
-    {
-        return HoursWorked <= 40 ? HoursWorked * BASE_WAGE : 40 * BASE_WAGE + (HoursWorked - 40) * OVERTIME_WAGE;
     }
 
     public override string ToString()
