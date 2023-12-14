@@ -13,8 +13,11 @@ int weeklyExpensesSum = expenses.Sum(dailyExpense => dailyExpense.Expense);
 Console.WriteLine($"\n\nTotal expense: {weeklyExpensesSum}");
 
 DailyExpense dayWithTheLeastExpense = GetDayWithTheLeastExpense(expenses);
-
 Console.WriteLine($"Day with the least expense: {dayWithTheLeastExpense.Day}: {dayWithTheLeastExpense.Expense}");
+
+
+bool hasExpenseEqualTo10000 = expenses.Any(x => x.Expense == 10000);
+Console.WriteLine($"{(hasExpenseEqualTo10000 ? "volt" : "nem volt")} 10.000Ft-os kiadás.");
 
 
 
