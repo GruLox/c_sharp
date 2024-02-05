@@ -19,8 +19,6 @@ public class Fruit
         Quantity = quantity;
     }
 
-
-
     public override string ToString()
     {
         return $"{Name}, {Price} Ft, {Quantity} db.";

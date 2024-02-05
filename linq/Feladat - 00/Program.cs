@@ -46,4 +46,21 @@ IEnumerable<string> namesOrderedByGradeThenPoints = students.OrderByDescending(s
                                                    .ThenByDescending(s => s.Points)
                                                    .Select(s => s.Name);
 
+//evfolyamonkent elert pontaszamok, evfolyam szerint csokkeno sorrnedben
+IEnumerable<GradeWithPoints> gradeWithPoints = students.GroupBy(x => x.Grade)
+                                                .Select(x => new GradeWithPoints
+                                                {
+                                                    Grade = x.Key,
+                                                    Points = x.Sum(x => x.Points)
+                                                })
+                                                .OrderByDescending(x => x.Grade);
+
+// milyen pontszamokat kaptak egyes evfolyamok
+// minden pontszam csak 1x fordulhat elo az eredmenyben
+IEnumerable<int> distinctedPoints = students.Select(x => x.Points)
+                                      .Distinct();
+// maskepp
+IEnumerable<int> distinctedPoints2 = students.DistinctBy(x => x.Points)
+                                      .Select(x => x.Points);     
+
 
