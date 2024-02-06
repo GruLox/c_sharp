@@ -34,6 +34,12 @@ IEnumerable<string> namesWithMoreThan200Points = students.Where(s => s.Points > 
 IEnumerable<string> namesOrdered = students.OrderBy(s => s.Name)
                                             .Select(s => s.Name);
 
+
+// rendezzuk osztalyok alapjan csokkeno sorrendbe
+// pontok alapjan csokkeno sorrendbe a diakok neveit
+var namesOrderedByGradeThenPoints = students.GroupBy(s => s.Grade);
+
+
 // keressuk ki a diakok neveit ABC szerint novekvo sorrendben
 // majd pontok alapján csokkeno sorrendben
 IEnumerable<string> namesOrderedByNamesThenPoints = students.OrderBy(s => s.Name)
