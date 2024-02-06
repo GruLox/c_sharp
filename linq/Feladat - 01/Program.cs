@@ -73,12 +73,18 @@ namespace Feladat___01
             
 
             // jatekosok csapatonkent (csapatnev, jatekos(csak nev))
-            IEnumerable<PlayersPerClub> playersPerClub = _players.GroupBy(p => p.Club)
-                                                        .Select(x => new PlayersPerClub
-                                                        {
-                                                            Club = x.Key,
-                                                            Players = x.Select(x => x.Name).ToList()
-                                                        });
+            IEnumerable<ClubWithPlayers> teamsWithPlayers = _players.GroupBy(p => p.Club)
+                                                                    .Select(x => new ClubWithPlayers
+                                                                    {
+                                                                        Club = x.Key,
+                                                                        PlayerNames = x.Select(x => x.Name).ToList()
+                                                                    });
+
+            foreach (var team in teamsWithPlayers)
+            {
+                Console.WriteLine(team);
+            }
+
             
 
 
