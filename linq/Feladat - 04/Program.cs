@@ -85,20 +85,20 @@ List<DirectorWithReleaseDates> actionMovieDirectorsWithReleaseDates = movies
 
 // 12 - 'Paramount Pictures' horror filmjeinek cime?
 IEnumerable<string> paramountPicturesHorrorMovieTitles = movies
-    .Where(m => m.Distributor.ToLower() == "paramount pictures" && m.MajorGenre.ToLower() == "horror")
+    .Where(m => m.Distributor.ToLower() == "paramount pictures" && m.MajorGenre?.ToLower() == "horror")
     .Select(m => m.Title);
 
 // 13 - Van-e olyan film melyet 'Tom Crusie' rendezett?
-bool isThereAnyMovieDirectedByTomCruise = movies.Any(m => m.Director.ToLower() == "tom cruise");
+bool isThereAnyMovieDirectedByTomCruise = movies.Any(m => m.Director?.ToLower() == "tom cruise");
 
 // 14 - A 'Little Miss Sunshine' filme mekkora össz bevételt hozott?
 long littleMissSunshineTotalGrossRevenue = movies
-    .Where(m => m.Title.ToLower() == "little miss sunshine")
-    .Sum(m => m.WorldwideGross ?? 0);
+    .FirstOrDefault(m => m.Title.ToLower() == "little miss sunshine")?.WorldwideGross ?? 0;
+    
 
 // 15 - Hány olyan film van amely az IMDB-n 6 feletti osztályzatot ért el és a 'Rotten Tomatoes'-n pedig legalább 25-t?
 long countOfMoviesWithIMDBRatingOver6AndRottenTomatoesRatingOver25 = movies
-    .Count(m => m.IMDBRating >= 6 && m.RottenTomatoesRating >= 25);
+    .Count(m => m.IMDBRating > 6 && m.RottenTomatoesRating >= 25);
 
 // 16 - 'Michael Bay' filmjei átlagban mekkora bevételt hoztak?
 double averageGrossRevenueOfMichaelBayMovies = movies
@@ -125,22 +125,22 @@ IEnumerable<Movie> moviesLongerThan120Minutes = movies.Where(m => m.RunningTime 
 long countOfMoviesReleasedInDecember = movies.Count(m => m.ReleaseDate.Month == 12);
 
 // 23 - Egyes besorolásokban (Rating) hány film található?
-IEnumerable<RatingCount> ratingCounts = movies
+IEnumerable<RatingWithCount> ratingCounts = movies
     .GroupBy(m => m.Rating)
-    .Select(g => new RatingCount
+    .Select(g => new RatingWithCount
     {
         Rating = int.Parse(g.Key),
         Count = g.Count()
     });
 
 // 24 - Keresse ki azokat a filmeket melyeket 'Ron Howard' rendezett a 2000 években, 'PG-13' bsorolású, lagalább 80 perc hosszú és az IMDB legalább 6.5 átlagot ért el.
-IEnumerable<Movie> moviesDirectedByRonHowardIn2000ThatArePG13AndAbove65 = movies
+IEnumerable<Movie> moviesDirectedByRonHowardIn2000sThatArePG13AndAbove65 = movies
     .Where(m => m.Director.ToLower() == "ron howard" && m.ReleaseDate.Year >= 2000 && 
     m.Rating == "PG-13" && m.RunningTime >= 80 && m.IMDBRating >= 6.5);
 
 // 25 - A 'Lionsgate' kiadónál kik rendeztek filmeket?
 IEnumerable<string> directorsOfLionsgateMovies = movies
-    .Where(m => m.Distributor.ToLower() == "lionsgate" && m.Director is not null)
+    .Where(m => m.Distributor.ToLower() == "lionsgate")
     .Select(m => m.Director);
 
 // 26 - Az 'Universal' forgalmazó átlagban mennyit kültött film forgatására?
@@ -152,10 +152,12 @@ double averageProductionBudgetOfUniversalMovies = movies
 IEnumerable<Movie> moviesWithMoreThan30000IMDBVotes = movies.Where(m => m.IMDBVotes >= 30000);
 
 // 28 - Az 'American Pie' című filmnek hány része van?
-long countOfAmericanPieMovies = movies.Count(m => m.Title.ToLower().Contains("american pie"));
+long countOfAmericanPieMovies = movies.Count(m => m.Title?.ToLower().Contains("american pie") ?? false);
 
 // 29 - Van-e olyan film melynek a címében szerepel a 'fantasy' szó és a zsánere 'Adventure'?
-bool isThereAFantasyAdventureMovie = movies.Any(m => m.Title.ToLower().Contains("fantasy") && m.MajorGenre.ToLower() == "adventure");
+bool isThereAFantasyAdventureMovie = 
+    movies.Any(m => m.Title?.ToLower().Contains("fantasy") ?? false && 
+               m.MajorGenre?.ToLower() == "adventure");
 
 
 // 30 - Átlagban hányan szavaztak az IMDB-n?
@@ -163,16 +165,28 @@ double averageIMDBVotes = movies.Average(m => m.IMDBVotes ?? 0);
 
 // 31 - Kik rendeztek a 'Warner Bros.' forgalmazónál dráma filmeket 1970 és 1975 közt melyre az 'IMDB Votes' alapján többen szavaztak az átlagnál?
 IEnumerable<string> directorsOfWarnerBrosDramaMoviesWithMoreVotesThanAverage = movies
-    .Where(m => m.Distributor.ToLower() == "warner bros." && m.MajorGenre.ToLower() == "drama" && m.ReleaseDate.Year >= 1970 && m.ReleaseDate.Year <= 1975 && m.IMDBVotes > averageIMDBVotes)
+    .Where(m => m.Distributor.ToLower() == "warner bros." &&
+           m.MajorGenre?.ToLower() == "drama" && m.ReleaseDate.Year >= 1970 && 
+           m.ReleaseDate.Year <= 1975 && m.IMDBVotes > averageIMDBVotes)
     .Select(m => m.Director);
 
 // 32 - Van e olyan film amely karácsony napján jelent meg?
 bool isThereAMovieReleasedOnChristmas = movies.Any(m => m.ReleaseDate.Month == 12 && m.ReleaseDate.Day == 25);
 
 // 33 - 'Spider-Man' című filmek USA-ban mekkora bevételt hoztak?
+long totalUSGrossRevenueOfSpiderManMovies = movies
+    .Where(m => m.Title?.ToLower().Contains("spider-man") ?? false).Sum(m => m.USGross ?? 0);
 
 
 
 
 // 34 - Keresse ki  szuperhősös (Super Hero) filmek címeit.
-IEnumerable<string> superHeroMovieTitles = movies.Where(m => m.MajorGenre.ToLower() == "super hero").Select(m => m.Title);
+IEnumerable<string> superHeroMovieTitles = movies.Where(m => m.MajorGenre?.ToLower() == "super hero").Select(m => m.Title);
+
+// 35 - Kérje le az első 10 filmet.
+IEnumerable<Movie> first10Movies = movies.Take(10);
+
+// 36 - Kérje le a 30 és 40 közti filmeket a sorból, ahol a 30 és a 40 indexek
+IEnumerable<Movie> moviesBetween30And40 = movies.Skip(30).Take(10);
+
+
