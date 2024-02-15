@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ikt_project\solution_matrix\Custom.Library\Custom.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="source\adatok.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
