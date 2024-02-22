@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "01_FileRead", "01_FileRead\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Custom.Library", "..\ikt_project\solution_matrix\Custom.Library\Custom.Library.csproj", "{0A015B63-4292-4869-BD11-428E503AA832}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "02_FileRead", "02_FileRead\02_FileRead.csproj", "{60F832A2-9CA5-4A61-B16D-50E64A4DD621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02_FileRead", "02_FileRead\02_FileRead.csproj", "{60F832A2-9CA5-4A61-B16D-50E64A4DD621}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_FIleRead", "03_FIleRead\03_FIleRead.csproj", "{790BEB63-EA0B-432B-8D25-8582CE120EC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{60F832A2-9CA5-4A61-B16D-50E64A4DD621}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60F832A2-9CA5-4A61-B16D-50E64A4DD621}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60F832A2-9CA5-4A61-B16D-50E64A4DD621}.Release|Any CPU.Build.0 = Release|Any CPU
+		{790BEB63-EA0B-432B-8D25-8582CE120EC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{790BEB63-EA0B-432B-8D25-8582CE120EC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{790BEB63-EA0B-432B-8D25-8582CE120EC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{790BEB63-EA0B-432B-8D25-8582CE120EC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

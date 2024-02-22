@@ -76,7 +76,6 @@ public static class FileService
             foreach (var title in theme.Titles)
             {
                 await sw.WriteLineAsync($"- {title}");
-                
             }
         }
     }
