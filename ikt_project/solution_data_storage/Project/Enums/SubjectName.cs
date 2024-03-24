@@ -1,0 +1,32 @@
+﻿namespace Project.Enums;
+
+public enum SubjectName
+{
+    Math,
+    Physics,
+    Chemistry,
+    Biology,
+    History,
+    Geography,
+    Literature,
+    English,
+    Spanish,
+    French,
+    German,
+    Italian,
+    Russian,
+    Chinese,
+    Japanese,
+    Korean,
+    Arabic,
+    Turkish,
+    Hungarian,
+    Programming,
+    WebDevelopment,
+    MobileDevelopment,
+    DatabaseManagement,
+    SoftwareEngineering,
+    CyberSecurity,
+    Networking,
+    SystemAdministration,
+}

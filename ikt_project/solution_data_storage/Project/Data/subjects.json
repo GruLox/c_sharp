@@ -1,0 +1,121 @@
+﻿[
+  {
+    "Id": 1,
+    "Name": "Math",
+    "StudentId": 1,
+    "Grades": [
+      5,
+      4
+    ]
+  },
+  {
+    "Id": 2,
+    "Name": "English",
+    "StudentId": 1,
+    "Grades": [
+      5,
+      2
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "Math",
+    "StudentId": 2,
+    "Grades": [
+      4,
+      3
+    ]
+  },
+  {
+    "Id": 4,
+    "Name": "English",
+    "StudentId": 2,
+    "Grades": [
+      2,
+      5
+    ]
+  },
+  {
+    "Id": 5,
+    "Name": "Programming",
+    "StudentId": 3,
+    "Grades": [
+      5,
+      4
+    ]
+  },
+  {
+    "Id": 6,
+    "Name": "English",
+    "StudentId": 3,
+    "Grades": [
+      3,
+      2
+    ]
+  },
+  {
+    "Id": 7,
+    "Name": "Math",
+    "StudentId": 4,
+    "Grades": [
+      4,
+      3
+    ]
+  },
+  {
+    "Id": 8,
+    "Name": "English",
+    "StudentId": 4,
+    "Grades": [
+      2,
+      1
+    ]
+  },
+  {
+    "Id": 9,
+    "Name": "Math",
+    "StudentId": 5,
+    "Grades": [
+      5,
+      4
+    ]
+  },
+  {
+    "Id": 10,
+    "Name": "English",
+    "StudentId": 5,
+    "Grades": [
+      3,
+      2,
+      4
+    ]
+  },
+  {
+    "Id": 11,
+    "Name": "Biology",
+    "StudentId": 5,
+    "Grades": []
+  },
+  {
+    "Id": 12,
+    "Name": "Chemistry",
+    "StudentId": 2,
+    "Grades": [
+      5
+    ]
+  },
+  {
+    "Id": 13,
+    "Name": "Geography",
+    "StudentId": 4,
+    "Grades": []
+  },
+  {
+    "Id": 0,
+    "Name": "Math",
+    "StudentId": 8,
+    "Grades": [
+      4
+    ]
+  }
+]
