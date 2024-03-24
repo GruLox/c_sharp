@@ -1,5 +1,8 @@
 ﻿namespace Project.Services;
 
+/// <summary>
+/// Manages the operations related to students, subjects and grades.
+/// </summary>
 public class StudentManager(string studentsFileName, string subjectsFileName)
 {
     private List<StudentWithSubjects> _students = [];
@@ -8,6 +11,10 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
     private readonly string _subjectsFileName = subjectsFileName;
     private int _nextStudentId = 1;
 
+    /// <summary>
+    /// Runs the student manager application.
+    /// </summary>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public async Task Run()
     {
         await LoadData();
