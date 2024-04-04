@@ -47,8 +47,7 @@ public partial class DigimonController(IDigimonServiceService<Digimon, int> serv
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> Create([FromBody][Required] Digimon requestParam)
     {
-        service.Create(requestParam);
-        return Ok(await Task.FromResult(true));
+        return Ok(service.Create(requestParam));
     }
 
     [HttpPut]
@@ -59,7 +58,7 @@ public partial class DigimonController(IDigimonServiceService<Digimon, int> serv
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> Update([FromBody][Required] Digimon requestParam)
     {
-        service.Create(requestParam);
+        service.Update(requestParam);
         return Ok(await Task.FromResult(true));
     }
 }
