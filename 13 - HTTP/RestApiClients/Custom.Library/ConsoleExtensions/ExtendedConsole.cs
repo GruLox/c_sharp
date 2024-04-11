@@ -159,6 +159,19 @@ public static class ExtendedConsole
         return text;
     }
 
+    public static char ReadChar(string prompt, ICollection<char> chars)
+    {
+        char character;
+        do
+        {
+            Console.Write(prompt);
+            character = Console.ReadKey().KeyChar;
+        }
+        while (!chars.Contains(character));
+
+        return character;
+    }
+
     public static T ReadEnum<T>(string prompt) where T : struct, Enum
     {
         bool isEnum;

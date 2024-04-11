@@ -1,0 +1,1 @@
+plusz feladat: ötössével megjeleníteni konzolon a söröket, szerver oldal átírása, előre vagy hátra lapozni, ha első oldal nem tud hátra lapozni, ha utolsó nem tud előre
