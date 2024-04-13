@@ -1,4 +1,6 @@
-﻿namespace Solution.Services;
+﻿using Microsoft.Identity.Client;
+
+namespace Solution.Services;
 
 public abstract class BaseService<T, TKey> : IBaseService<T, TKey> where T : class
 {
@@ -13,6 +15,16 @@ public abstract class BaseService<T, TKey> : IBaseService<T, TKey> where T : cla
     public abstract T GetById(TKey id);
 
     public abstract void Update(T model);
+
+    public virtual int GetCount()
+    {
+        return Items.Count;
+    }
+
+    public virtual ICollection<T> GetByPage(int page, int itemsPerPage)
+    {
+        return Items.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+    }
 
     protected List<T> ReadDataFromJson(string fileName)
     {

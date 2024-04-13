@@ -2,7 +2,101 @@
 
 public static class Menu
 {
-    public static async Task ShowMainMenu()
+    public static async Task DisplayMainMenu()
+    {
+        Console.Clear();
+
+        Console.WriteLine("1 - Add a new beer");
+        Console.WriteLine("2 - Modify a beer");
+        Console.WriteLine("3 - List all beers");
+        Console.WriteLine("4 - Exit");
+
+        int choice = ExtendedConsole.ReadInteger("Choose an option: ", 4, 1);
+
+        switch (choice)
+        {
+            case 1:
+                await DisplayAddMenu();
+                break;
+            case 2:
+                await GetBeerToModify();
+                break;
+            case 3:
+                await DisplayBeersPaginated();
+                break;
+            case 4:
+                Environment.Exit(0);
+                break;
+        }
+
+        await DisplayMainMenu();
+    }
+    public static async Task DisplayAddMenu()
+    {
+        Console.Clear();
+
+        var beer = GetNewBeerData();
+
+        await BeerService.AddAsync(beer);
+
+        Console.WriteLine("Beer added successfully!");
+
+        await Task.Delay(3000);
+    }
+
+    public static async Task DisplayBeersPaginated()
+    {
+        int page = 1;
+        int itemsPerPage = 5;
+        int totalCount = await BeerService.GetTotalCountAsync();
+        int totalPages = (int)Math.Ceiling((double)totalCount / itemsPerPage);
+
+        while (true)
+        {
+            await DisplayPageOfBeers(page, itemsPerPage);
+
+            Console.WriteLine($"\nPage {page} of {totalPages}");
+            Console.WriteLine("1. Next page");
+            Console.WriteLine("2. Previous page");
+            Console.WriteLine("3. Change number of items per page");
+            Console.WriteLine("4. Exit");
+
+            var option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    if (page < totalPages) page++;
+                    break;
+                case "2":
+                    if (page > 1) page--;
+                    break;
+                case "3":
+                    itemsPerPage = ExtendedConsole.ReadInteger("Enter the number of items per page: ", min: 1);
+                    totalPages = (int)Math.Ceiling((double)totalCount / itemsPerPage);
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+            }
+        }
+    }
+
+    public static async Task DisplayPageOfBeers(int page, int numberOfItems)
+    {
+        var beers = await BeerService.GetPageAsync(page, numberOfItems);
+
+        Console.Clear();
+
+        foreach (var beer in beers)
+        {
+            Console.WriteLine(beer.ToString());
+        }
+    }
+
+    public static async Task GetBeerToModify()
     {
         Console.Clear();
 
@@ -15,12 +109,12 @@ public static class Menu
             Console.WriteLine("Beer not found.");
             await Task.Delay(3000);
 
-            await ShowMainMenu();
+            await GetBeerToModify();
         }
         else
         {
             AppState.SetBeer(beer);
-            UpdateOrDelete();
+            await UpdateOrDelete();
         }
 
 
@@ -37,29 +131,33 @@ public static class Menu
 
         Console.WriteLine("1 - Delete");
         Console.WriteLine("2 - Update");
+        Console.WriteLine("3 - Back");
         int choice = ExtendedConsole.ReadInteger("Choose an option: ", 2, 1);
 
         switch (choice)
         {
             case 1:
-                Delete();
+                await Delete();
                 break;
             case 2:
-                Update();
+                await Update();
+                break;
+            case 3:
+                await DisplayMainMenu();
                 break;
         }
 
-        await ShowMainMenu();
+        await DisplayMainMenu();
     }
 
-    private static async void Delete()
+    private static async Task Delete()
     {
         char answer = ExtendedConsole.ReadChar("Are you sure you want to delete this beer? (y/n): ", ['y', 'Y', 'n', 'N']);
 
         if (answer == 'n' || answer == 'N')
         {
             return;
-        } 
+        }
 
         var beer = AppState.GetBeer();
         bool isSuccess = await BeerService.DeleteAsync(beer.Id);
@@ -71,7 +169,7 @@ public static class Menu
         await Task.Delay(3000);
     }
 
-    private static async void Update()
+    private static async Task Update()
     {
         Console.Clear();
 
@@ -80,7 +178,7 @@ public static class Menu
         await BeerService.UpdateAsync(updatedBeer);
 
         await Task.Delay(3000);
-        await ShowMainMenu();
+        await GetBeerToModify();
     }
 
     private static Beer GetUpdatedBeerData()
@@ -103,5 +201,35 @@ public static class Menu
         AppState.Update(beer);
 
         return AppState.GetBeer();
+    }
+
+    private static Beer GetNewBeerData()
+    {
+        Console.Clear();
+
+        var beer = new Beer();
+
+        beer.Name = ExtendedConsole.ReadString("Enter the beer name: ");
+
+        double price = ExtendedConsole.ReadDouble("Enter the beer price: ", min: 0, max: int.MaxValue);
+        beer.Price = $"${Math.Abs(price)}";
+
+        beer.Image = ExtendedConsole.ReadString("Enter the beer image: ");
+
+        beer.Rating = GetNewRating();
+
+        return beer;
+    }
+
+    private static Rating GetNewRating()
+    {
+        Console.Clear();
+
+        var rating = new Rating();
+
+        rating.Average = ExtendedConsole.ReadDouble("Enter the beer rating average: ", min: 0, max: 5);
+        rating.Reviews = ExtendedConsole.ReadInteger("Enter the beer rating reviews: ", min: 0);
+
+        return rating;
     }
 }

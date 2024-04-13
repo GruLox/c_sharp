@@ -1,9 +1,11 @@
-﻿namespace HttpServices;
+﻿using System.Web;
+
+namespace HttpServices;
 
 public class BaseService
 {
-    private static HttpClient httpClient;
-    private static JsonSerializerOptions options;
+    private static readonly HttpClient httpClient;
+    private static readonly JsonSerializerOptions options;
     private const string baseURL = "https://localhost:5000";
 
     static BaseService()
@@ -48,14 +50,49 @@ public class BaseService
     /// </summary>
     /// <typeparam name="TResponse">The return type</typeparam>
     /// <param name="route">The route part without the base url</param>
-    /// <param name="routParam">Rout parameter</param>
+    /// <param name="routeParam">Rout parameter</param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    public static async Task<TResponse> SendGetRequestAsync<TResponse>(string route, object routParam)
+    public static async Task<TResponse> SendGetRequestAsync<TResponse>(string route, object routeParam)
     {
         try
         {
-            var uri = BuildUri(route, routParam);
+            var uri = BuildUri(route, routeParam);
+
+            var response = await httpClient.GetAsync(uri);
+            response.EnsureSuccessStatusCode();
+
+            var content = await SerializeResponseAsync<TResponse>(response.Content);
+            return content;
+        }
+        catch (Exception ex)
+        {
+            return (TResponse)default;
+        }
+    }
+
+    /// <summary>
+    /// Sends a GET request to the specified route with a route parameter and query parameters, and deserializes the response to the specified type.
+    /// </summary>
+    /// <typeparam name="TResponse">The type to deserialize the response to.</typeparam>
+    /// <param name="route">The route to send the request to, excluding the base URL.</param>
+    /// <param name="routeParam">The route parameter to include in the request.</param>
+    /// <param name="queryParameters">The query parameters to include in the request.</param>
+    /// <returns>The deserialized response, or the default value of TResponse if an exception occurs.</returns>
+
+    public static async Task<TResponse> SendGetRequestAsync<TResponse>(string route, object routeParam, Dictionary<string, string> queryParameters)
+    {
+        try
+        {
+            var uri = BuildUri(route, routeParam);
+
+            var query = HttpUtility.ParseQueryString(string.Empty);
+            foreach (var (key, value) in queryParameters)
+            {
+                query[key] = value;
+            }
+
+            uri = new Uri($"{uri}?{query}");
 
             var response = await httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();

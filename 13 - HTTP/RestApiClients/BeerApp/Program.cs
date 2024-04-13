@@ -1,1 +1,1 @@
-﻿await Menu.ShowMainMenu();
+﻿await Menu.DisplayMainMenu();
