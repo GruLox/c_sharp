@@ -85,6 +85,57 @@ public static class Menu
         }
     }
 
+    /*
+    public static async Task DisplayBeersPaginated()
+    {
+        int page = 1;
+        int itemsPerPage = 5;
+
+        // Fetch all beers at once
+        var allBeers = await BeerService.GetAllAsync();
+        int totalCount = allBeers.Count;
+        int totalPages = (int)Math.Ceiling((double)totalCount / itemsPerPage);
+
+        while (true)
+        {
+            // Get the beers for the current page
+            var beers = allBeers.Skip((page - 1) * itemsPerPage).Take(itemsPerPage).ToList();
+
+            Console.Clear();
+
+            beers.WriteCollectionToConsole();
+
+            Console.WriteLine($"\nPage {page} of {totalPages}");
+            Console.WriteLine("1. Next page");
+            Console.WriteLine("2. Previous page");
+            Console.WriteLine("3. Change number of items per page");
+            Console.WriteLine("4. Exit");
+
+            var option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    if (page < totalPages) page++;
+                    break;
+                case "2":
+                    if (page > 1) page--;
+                    break;
+                case "3":
+                    itemsPerPage = ExtendedConsole.ReadInteger("Enter the number of items per page: ", min: 1);
+                    totalPages = (int)Math.Ceiling((double)totalCount / itemsPerPage);
+                    if (page > totalPages) page = totalPages;
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Invalid option. Please try again.");
+                    break;
+            }
+        }
+    }
+    */
+
     public static async Task DisplayPageOfBeers(int page, int numberOfItems)
     {
         var beers = await BeerService.GetPageAsync(page, numberOfItems);
