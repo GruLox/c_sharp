@@ -21,11 +21,13 @@ public class Beer
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.AppendLine($"Id: {Id}");
+        sb.AppendLine($"========== BEER DETAILS ==========");
+        sb.AppendLine($"ID: {Id}");
         sb.AppendLine($"Name: {Name}");
         sb.AppendLine($"Price: {Price}");
-        sb.AppendLine($"Image: {Image}");
+        sb.AppendLine($"Image URL: {Image}");
         sb.AppendLine($"Rating: {Rating.Average} ({Rating.Reviews} reviews)");
+        sb.AppendLine($"==================================");
 
         return sb.ToString();
     }

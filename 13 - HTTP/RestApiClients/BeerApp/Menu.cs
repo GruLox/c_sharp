@@ -39,9 +39,9 @@ public static class Menu
 
         await BeerService.AddAsync(beer);
 
-        Console.WriteLine("Beer added successfully!");
-
         await Task.Delay(3000);
+
+        await DisplayMainMenu();
     }
 
     public static async Task DisplayBeersPaginated()
@@ -74,6 +74,7 @@ public static class Menu
                 case "3":
                     itemsPerPage = ExtendedConsole.ReadInteger("Enter the number of items per page: ", min: 1);
                     totalPages = (int)Math.Ceiling((double)totalCount / itemsPerPage);
+                    if (page > totalPages) page = totalPages;
                     break;
                 case "4":
                     return;
@@ -90,10 +91,7 @@ public static class Menu
 
         Console.Clear();
 
-        foreach (var beer in beers)
-        {
-            Console.WriteLine(beer.ToString());
-        }
+        beers.WriteCollectionToConsole();
     }
 
     public static async Task GetBeerToModify()
@@ -132,7 +130,7 @@ public static class Menu
         Console.WriteLine("1 - Delete");
         Console.WriteLine("2 - Update");
         Console.WriteLine("3 - Back");
-        int choice = ExtendedConsole.ReadInteger("Choose an option: ", 2, 1);
+        int choice = ExtendedConsole.ReadInteger("Choose an option: ", min: 1, max: 3);
 
         switch (choice)
         {

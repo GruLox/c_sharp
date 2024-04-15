@@ -36,7 +36,7 @@ public class BeerService : BaseService
 
     public static async Task<bool> AddAsync(Beer beer)
     {
-        var isSuccess = await SendPostRequestAsync("api/beer/add", beer);
+        var isSuccess = await SendPostRequestAsync("api/beer/create", beer);
 
         Console.WriteLine(isSuccess ? "Beer added successfully!" : "Failed to add beer");
 
