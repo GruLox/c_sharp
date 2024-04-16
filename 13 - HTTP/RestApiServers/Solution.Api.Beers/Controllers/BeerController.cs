@@ -13,7 +13,7 @@ public partial class BeerController(IBeerService<Beer, int> service) : Controlle
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> GetCount()
     {
-        return Ok(await Task.FromResult(service.GetCount()));
+        return await Task.FromResult(Ok(service.GetCount()));
     }
 
     [HttpGet]
@@ -24,7 +24,7 @@ public partial class BeerController(IBeerService<Beer, int> service) : Controlle
     [ProducesResponseType((int)HttpStatusCode.BadRequest)]
     public async Task<IActionResult> GetAll()
     {
-        return Ok(await Task.FromResult(service.GetAll()));
+        return await Task.FromResult(Ok(service.GetAll()));
     }
 
     [HttpGet]

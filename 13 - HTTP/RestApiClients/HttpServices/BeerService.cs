@@ -1,7 +1,4 @@
-﻿
-using Models;
-
-namespace BeerApp;
+﻿namespace BeerApp;
 
 public class BeerService : BaseService
 {
@@ -34,13 +31,13 @@ public class BeerService : BaseService
         return beers;
     }
 
-    public static async Task<bool> AddAsync(Beer beer)
+    public static async Task<Beer> AddAsync(Beer beer)
     {
-        var isSuccess = await SendPostRequestAsync("api/beer/create", beer);
+        var addedBeer = await SendPostRequestAsync<Beer>("api/beer/create", beer);
 
-        Console.WriteLine(isSuccess ? "Beer added successfully!" : "Failed to add beer");
+        Console.WriteLine(addedBeer is not null ? "Beer added successfully!" : "Failed to add beer");
 
-        return isSuccess;
+        return addedBeer;
     }
 
     public static async Task<bool> DeleteAsync(int id)

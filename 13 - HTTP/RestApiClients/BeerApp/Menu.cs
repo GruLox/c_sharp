@@ -37,7 +37,12 @@ public static class Menu
 
         var beer = GetNewBeerData();
 
-        await BeerService.AddAsync(beer);
+        var addedBeer = await BeerService.AddAsync(beer);
+
+        if (addedBeer is not null && addedBeer.Id > 0)
+        {
+            Console.WriteLine($"Added beer: {addedBeer}");
+        }
 
         await Task.Delay(3000);
 
