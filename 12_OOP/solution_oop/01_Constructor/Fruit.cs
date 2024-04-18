@@ -6,6 +6,18 @@ public class Fruit
     public int Calories { get; set; }
     public double Price { get; set; }
 
+    public List<string> Importers { get; private set; } = [];
+
+    public bool HasImporters => Importers.Any();
+
+    //public bool HasImporters
+    //{
+    //    get
+    //    {
+    //        return Importers.Any();
+    //    }
+    //}
+
     public Fruit()
     {
 

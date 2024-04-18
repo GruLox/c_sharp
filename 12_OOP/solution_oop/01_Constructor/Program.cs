@@ -6,7 +6,8 @@ apple.Name = "Apple";
 apple.Calories = 60;
 apple.Price = 450;
 apple.Importers.Add("ABCS");
-apple.Importers = new List<string> { "ABCS", "XYZ" }; // private set
+//apple.Importers = new List<string> { "ABCS", "XYZ" }; // private set
+//apple.HasImporters = true; // read-only property
 
 // object initializer
 var orange = new Fruit
