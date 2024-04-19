@@ -17,8 +17,3 @@ void SignalVehicleError(Vehicle vehicle)
     vehicle.Error();
 }
 
-// sms küldő rendszer 3 különböző rendszerre lehet küldeni, 
-// bejön az üzenet, a rendszer tudja melyik telefonról van szó
-// ki kell küldeni az üzenetet a megfelelő rendszerre
-// factory pattern
-// interface
