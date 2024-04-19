@@ -159,7 +159,7 @@ public static class ExtendedConsole
         return text;
     }
 
-    public static T ReadEnum<T>(string prompt) where T : struct, Enum
+    public static T ReadEnum<T>(string prompt = "") where T : struct, Enum
     {
         bool isEnum;
         T value;

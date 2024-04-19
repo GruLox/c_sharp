@@ -10,6 +10,8 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
     private readonly string _studentsFileName = studentsFileName;
     private readonly string _subjectsFileName = subjectsFileName;
     private int _nextStudentId = 1;
+    private const int ITEMS_PER_PAGE = 5;
+    
 
     /// <summary>
     /// Runs the student manager application.
@@ -18,42 +20,39 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
     public async Task Run()
     {
         await LoadData();
-        
+
         AssignSubjectsToStudents();
 
         // Main loop
         bool running = true;
         while (running)
         {
-            ConsoleService.PrintMenu();
+            ConsoleService.DisplayMainMenu();
 
-            string option = ExtendedConsole.ReadString();
+            var option = ExtendedConsole.ReadEnum<MainMenuOption>();
 
             // Handle the selected option
-            running = HandleOption(option);
+            running = HandleMainMenuOption(option);
 
             await SaveData();
         }
     }
 
     #region Option Handling
-    private bool HandleOption(string option)
+    private bool HandleMainMenuOption(MainMenuOption option)
     {
         switch (option)
         {
-            case "1":
-                AddStudent();
+            case MainMenuOption.DisplayStudents:
+                DisplayStudents();
                 break;
-            case "2":
-                AddSubjectToStudent();
+            case MainMenuOption.Add:
+                HandleAdditionOption();
                 break;
-            case "3":
-                AddGradeToSubjectOfStudent();
+            case MainMenuOption.Modify:
+                HandleModificationOption();
                 break;
-            case "4":
-                HandleModification();
-                break;
-            case "5":
+            case MainMenuOption.Exit:
                 return false;
             default:
                 Console.WriteLine("Invalid option. Please try again.");
@@ -62,21 +61,44 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
         return true;
     }
 
-    private void HandleModification()
+    private void HandleAdditionOption()
     {
-        ConsoleService.PrintMenuForModification();
+        ConsoleService.DisplayAddMenu();
 
-        string option = ExtendedConsole.ReadString();
+        var option = ExtendedConsole.ReadEnum<AddMenuOption>();
 
         switch (option)
         {
-            case "1":
+            case AddMenuOption.AddStudent:
+                AddStudent();
+                break;
+            case AddMenuOption.AddSubject:
+                AddSubjectToStudent();
+                break;
+            case AddMenuOption.AddGrade:
+                AddGradeToSubjectOfStudent();
+                break;
+            default:
+                Console.WriteLine("Invalid option. Please try again.");
+                break;
+        }
+    }
+
+    private void HandleModificationOption()
+    {
+        ConsoleService.DisplayModificationMenu();
+
+        var option = ExtendedConsole.ReadEnum<ModifyMenuOption>();
+
+        switch (option)
+        {
+            case ModifyMenuOption.ModifyStudent:
                 ModifyStudent();
                 break;
-            case "2":
+            case ModifyMenuOption.ModifySubject:
                 ModifySubject();
                 break;
-            case "3":
+            case ModifyMenuOption.ModifyGrade:
                 ModifyGrade();
                 break;
             default:
@@ -116,6 +138,100 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
     }
     #endregion
 
+    #region Display
+
+    private void DisplayStudents()
+    {
+        int page = 1;
+        while (true)
+        {
+            var studentsInPage = GetStudentsInPage(page);
+
+            if (studentsInPage.Count == 0)
+            {
+                Console.WriteLine("No more students.");
+
+                // Wait for user input before returning to the main menu
+                Console.WriteLine("Press any key to return to the main menu.");
+                Console.ReadKey(true);
+                break;
+            }
+
+            Console.Clear();
+
+            studentsInPage.WriteCollectionToConsole();
+
+            Console.WriteLine($"Page {page}. Enter a student's ID to view details, N for next page, P for previous page, or B to go back:");
+            string input = ExtendedConsole.ReadString().ToUpper();
+
+            if (input == "N")
+            {
+                page++;
+                continue;
+            }
+            else if (input == "P")
+            {
+                if (page > 1) page--;
+                continue;
+            }
+            else if (input == "B")
+            {
+                break;
+            }
+            else
+            {
+                bool isInt = int.TryParse(input, out int studentId);
+                if (isInt)
+                {
+                    ViewStudentDetails(studentId);
+
+                    // Wait for user input before returning to the list
+                    Console.WriteLine("Press any key to return to the list.");
+                    Console.ReadKey(true);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please try again.");
+                }
+            }
+        }
+    }
+
+    private void ViewStudentDetails(int studentId)
+    {
+        var student = GetStudentById(studentId);
+
+        Console.Clear();
+
+        if (student is null)
+        {
+            Console.WriteLine("Student not found.");
+            return;
+        }
+
+        Console.WriteLine(student);
+
+        if (student.Subjects.Count == 0)
+        {
+            Console.WriteLine("No subjects found for this student.");
+            return;
+        }
+
+        foreach (var subject in student.Subjects)
+        {
+            if (subject.Grades.Count == 0)
+            {
+                Console.WriteLine($"No grades found for {subject.Name}.");
+            }
+            else
+            {
+                Console.WriteLine($"{subject.Name} Grades: {string.Join(", ", subject.Grades)}");
+            }
+        }
+    }
+
+    #endregion
+
     #region Add
     private void AddStudent()
     {
@@ -129,8 +245,8 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
 
         _students.Add(student);
         Console.WriteLine("Student added successfully.");
+        Thread.Sleep(2000);
 
-        // Increment the next student ID
         _nextStudentId++;
     }
 
@@ -157,6 +273,7 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
         _subjects.Add(subject);
         student.Subjects.Add(subject);
         Console.WriteLine("Subject added successfully.");
+        Thread.Sleep(2000);
     }
 
     private void AddGradeToSubjectOfStudent()
@@ -193,6 +310,7 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
 
         subject.Grades.Add(grade);
         Console.WriteLine("Grade added successfully.");
+        Thread.Sleep(2000);
     }
     #endregion
 
@@ -213,6 +331,7 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
         string name = ExtendedConsole.ReadString("Enter the new name: ");
         student.Name = name;
         Console.WriteLine("Student modified successfully.");
+        Thread.Sleep(2000);
     }
 
     private void ModifySubject()
@@ -230,6 +349,7 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
         SubjectName subjectName = ExtendedConsole.ReadEnum<SubjectName>("Enter the new subject's name: ");
         subject.Name = subjectName;
         Console.WriteLine("Subject modified successfully.");
+        Thread.Sleep(2000);
     }
 
     private void ModifyGrade()
@@ -273,12 +393,13 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
 
         int gradeCount = subject.Grades.Count;
         int gradeIndex = ExtendedConsole.ReadInteger("Enter the index of the grade you want to modify: ", min: 0, max: gradeCount);
-        int newGrade = ExtendedConsole.ReadInteger("Enter the new grade: ", min: 1,  max: 5);
+        int newGrade = ExtendedConsole.ReadInteger("Enter the new grade: ", min: 1, max: 5);
 
         var gradesList = subject.Grades.ToList();
         gradesList[gradeIndex] = newGrade;
         subject.Grades = gradesList;
         Console.WriteLine("Grade modified successfully.");
+        Thread.Sleep(2000);
     }
 
     #endregion
@@ -304,7 +425,10 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
     #endregion
 
     #region Helper Methods
-    private StudentWithSubjects? GetStudentById(int id) => 
+    private StudentWithSubjects? GetStudentById(int id) =>
         _students.FirstOrDefault(s => s.Id == id);
+
+    private List<StudentWithSubjects> GetStudentsInPage(int page) =>
+        _students.Skip((page - 1) * ITEMS_PER_PAGE).Take(ITEMS_PER_PAGE).ToList();
     #endregion
 }

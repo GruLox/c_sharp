@@ -9,10 +9,8 @@ public class StudentWithSubjects : Student
         Subjects = new List<Subject>();
     }
 
-    public StudentWithSubjects(Student student, ICollection<Subject> subjects)
+    public StudentWithSubjects(int id, string name, ICollection<Subject> subjects) : base(id, name)
     {
-        Id = student.Id;
-        Name = student.Name;
         Subjects = subjects;
     }
 
