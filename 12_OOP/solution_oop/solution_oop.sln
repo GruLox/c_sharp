@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMS", "SMS\SMS.csproj", "{C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "04_Interfaces", "04_Interfaces\04_Interfaces.csproj", "{C82D63C7-79AF-4391-A437-D72463A60BB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05_Static_Class", "05_Static_Class\05_Static_Class.csproj", "{4BDF14BB-9F0D-40E4-B422-21913981B22B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "05_Static_Class", "05_Static_Class\05_Static_Class.csproj", "{4BDF14BB-9F0D-40E4-B422-21913981B22B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11_Superheroes", "11_Superheroes\11_Superheroes.csproj", "{AB73537D-A6DB-469B-9FFA-DCB3C88AEF5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12_Airplane", "12_Airplane\12_Airplane.csproj", "{F1AB63E2-1F49-483B-839A-9989E34EE6A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{4BDF14BB-9F0D-40E4-B422-21913981B22B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BDF14BB-9F0D-40E4-B422-21913981B22B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BDF14BB-9F0D-40E4-B422-21913981B22B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB73537D-A6DB-469B-9FFA-DCB3C88AEF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB73537D-A6DB-469B-9FFA-DCB3C88AEF5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB73537D-A6DB-469B-9FFA-DCB3C88AEF5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB73537D-A6DB-469B-9FFA-DCB3C88AEF5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1AB63E2-1F49-483B-839A-9989E34EE6A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1AB63E2-1F49-483B-839A-9989E34EE6A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1AB63E2-1F49-483B-839A-9989E34EE6A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1AB63E2-1F49-483B-839A-9989E34EE6A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
