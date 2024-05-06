@@ -1,17 +1,23 @@
-﻿namespace Project.Services;
+﻿
+namespace Project.Services;
 
 /// <summary>
 /// Manages the operations related to students, subjects and grades.
 /// </summary>
-public class StudentManager(string studentsFileName, string subjectsFileName)
+public class StudentManager(IConsoleService consoleService, IJsonUtilities jsonUtilities, string studentsFileName, string subjectsFileName)
 {
+    private const string DATA_DIRECTORY = "Data";
+    private const int ITEMS_PER_PAGE = 5;
+
+    private readonly IConsoleService _consoleService = consoleService;
+    private readonly IJsonUtilities _jsonUtilities = jsonUtilities;
     private List<StudentWithSubjects> _students = [];
     private List<Subject> _subjects = [];
     private readonly string _studentsFileName = studentsFileName;
     private readonly string _subjectsFileName = subjectsFileName;
     private int _nextStudentId = 1;
-    private const int ITEMS_PER_PAGE = 5;
-    
+    private bool _running = true;
+
 
     /// <summary>
     /// Runs the student manager application.
@@ -24,22 +30,20 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
         AssignSubjectsToStudents();
 
         // Main loop
-        bool running = true;
-        while (running)
+        while (_running)
         {
-            ConsoleService.DisplayMainMenu();
-
-            var option = ExtendedConsole.ReadEnum<MainMenuOption>();
+            var option = _consoleService.DisplayMenu<MainMenuOption>();
 
             // Handle the selected option
-            running = HandleMainMenuOption(option);
+            HandleMainMenuOption(option);
 
             await SaveData();
         }
     }
 
     #region Option Handling
-    private bool HandleMainMenuOption(MainMenuOption option)
+    // returns false if the user selected the exit option
+    private void HandleMainMenuOption(MainMenuOption option)
     {
         switch (option)
         {
@@ -53,19 +57,17 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
                 HandleModificationOption();
                 break;
             case MainMenuOption.Exit:
-                return false;
+                _running = false;
+                break;
             default:
                 Console.WriteLine("Invalid option. Please try again.");
                 break;
         }
-        return true;
     }
 
     private void HandleAdditionOption()
     {
-        ConsoleService.DisplayAddMenu();
-
-        var option = ExtendedConsole.ReadEnum<AddMenuOption>();
+        var option = _consoleService.DisplayMenu<AddMenuOption>();
 
         switch (option)
         {
@@ -78,6 +80,8 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
             case AddMenuOption.AddGrade:
                 AddGradeToSubjectOfStudent();
                 break;
+            case AddMenuOption.Back:
+                return;
             default:
                 Console.WriteLine("Invalid option. Please try again.");
                 break;
@@ -86,9 +90,7 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
 
     private void HandleModificationOption()
     {
-        ConsoleService.DisplayModificationMenu();
-
-        var option = ExtendedConsole.ReadEnum<ModifyMenuOption>();
+        var option = _consoleService.DisplayMenu<ModifyMenuOption>();
 
         switch (option)
         {
@@ -101,6 +103,8 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
             case ModifyMenuOption.ModifyGrade:
                 ModifyGrade();
                 break;
+            case ModifyMenuOption.Back:
+                return;
             default:
                 Console.WriteLine("Invalid option. Please try again.");
                 break;
@@ -113,8 +117,8 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
     {
         try
         {
-            _students = await JsonUtilities.LoadDataFromJSON<StudentWithSubjects>(_studentsFileName);
-            _subjects = await JsonUtilities.LoadDataFromJSON<Subject>(_subjectsFileName);
+            _students = await _jsonUtilities.LoadDataFromJSON<StudentWithSubjects>(DATA_DIRECTORY, _studentsFileName);
+            _subjects = await _jsonUtilities.LoadDataFromJSON<Subject>(DATA_DIRECTORY, _subjectsFileName);
 
             // Update _nextStudentId based on loaded data
             if (_students.Count != 0)
@@ -183,7 +187,7 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
                 bool isInt = int.TryParse(input, out int studentId);
                 if (isInt)
                 {
-                    ViewStudentDetails(studentId);
+                    DisplayStudentDetails(studentId);
 
                     // Wait for user input before returning to the list
                     Console.WriteLine("Press any key to return to the list.");
@@ -197,7 +201,7 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
         }
     }
 
-    private void ViewStudentDetails(int studentId)
+    private void DisplayStudentDetails(int studentId)
     {
         var student = GetStudentById(studentId);
 
@@ -414,8 +418,8 @@ public class StudentManager(string studentsFileName, string subjectsFileName)
                 Id = s.Id,
                 Name = s.Name,
             }).ToList();
-            await JsonUtilities.SaveDataToJSON<Student>(students, _studentsFileName);
-            await JsonUtilities.SaveDataToJSON<Subject>(_subjects, _subjectsFileName);
+            await _jsonUtilities.SaveDataToJSON<Student>(students, DATA_DIRECTORY, _studentsFileName);
+            await _jsonUtilities.SaveDataToJSON<Subject>(_subjects, DATA_DIRECTORY, _subjectsFileName);
         }
         catch (Exception ex)
         {

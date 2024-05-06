@@ -1,34 +1,32 @@
 ﻿
-
 namespace Custom.Library.JsonUtilities;
 
-public static class JsonUtilities
+public class JsonUtilities : IJsonUtilities
 {
-    public static async Task<List<T>> LoadDataFromJSON<T>(string fileName)
+    private static readonly string _projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName;
+    private static readonly JsonSerializerOptions _options = new()
     {
-        string path = Path.Combine("Data", fileName);
+        Converters = { new JsonStringEnumConverter() },
+        WriteIndented = true
+    };
+
+    public async Task<List<T>> LoadDataFromJSON<T>(params string[] pathSegments)
+    {
+        string path = Path.Combine(pathSegments);
 
         string json = await File.ReadAllTextAsync(path);
-        var options = new JsonSerializerOptions();
-        options.Converters.Add(new JsonStringEnumConverter());
-        return JsonSerializer.Deserialize<List<T>>(json, options)!;
+
+        return JsonSerializer.Deserialize<List<T>>(json, _options)!;
     }
 
-    public static async Task SaveDataToJSON<T>(ICollection<T> data, string fileName)
+    public async Task SaveDataToJSON<T>(ICollection<T> data, params string[] pathSegments)
     {
-        // Get the project directory
-        string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName;
-
-        string path = Path.Combine(projectDirectory, "Data", fileName);
-
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true
-        };
-        options.Converters.Add(new JsonStringEnumConverter());
-
-        string json = JsonSerializer.Serialize(data, options);
-
+        // Combine the project directory with the path segments
+        string[] fullPathSegments = new string[pathSegments.Length + 1];
+        fullPathSegments[0] = _projectDirectory;
+        Array.Copy(pathSegments, 0, fullPathSegments, 1, pathSegments.Length);
+        string path = Path.Combine(fullPathSegments);
+        string json = JsonSerializer.Serialize(data, _options);
         await File.WriteAllTextAsync(path, json, Encoding.UTF8);
     }
 }
