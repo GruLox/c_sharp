@@ -15,6 +15,4 @@ public class MessageSenderFactory(IHttpService httpService) : IMessageSenderFact
             _ => throw new ArgumentException("Invalid platform")
         };
     }
-
-    
 }

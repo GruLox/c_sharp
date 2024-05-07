@@ -1,6 +1,6 @@
 ﻿var host = CreateHostBuilder(args).Build();
 
-var userInterface = host.Services.GetRequiredService<UserInterface>();
+var userInterface = host.Services.GetRequiredService<IUserInterface>();
 await userInterface.Run();
 
 static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -12,5 +12,6 @@ static IHostBuilder CreateHostBuilder(string[] args) =>
                     .AddScoped<IMessageSender, IOSMessageSender>()
                     .AddScoped<IMessageSender, AndroidMessageSender>()
                     .AddScoped<IMessageSenderFactory, MessageSenderFactory>()
-                    .AddScoped<MessageManager>()
-                    .AddScoped<UserInterface>());
+                    .AddScoped<IMenuService, MenuService>()
+                    .AddScoped<IMessageManager, MessageManager>()
+                    .AddScoped<IUserInterface, UserInterface>());

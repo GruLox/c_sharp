@@ -1,16 +1,15 @@
 ﻿namespace SMS_Sender.Services;
 
-public class UserInterface(MessageManager messageManager) : IUserInterface
+public class UserInterface(IMessageManager messageManager, IMenuService menuService) : IUserInterface
 {
-    private readonly MessageManager _messageManager = messageManager;
+    private readonly IMessageManager _messageManager = messageManager;
+    private readonly IMenuService _menuService = menuService;
 
     public async Task Run()
     {
         while (true)
         {
-            DisplayMainMenu();
-
-            var option = ExtendedConsole.ReadEnum<UserOption>("Please select an option: ");
+            var option = _menuService.DisplayMenu<UserOption>();
 
             switch (option)
             {
@@ -32,18 +31,7 @@ public class UserInterface(MessageManager messageManager) : IUserInterface
         }
     }
 
-    public void DisplayMainMenu()
-    {
-        Console.Clear();
-
-        Console.WriteLine("1 - Add new message");
-        Console.WriteLine("2 - Delete message");
-        Console.WriteLine("3 - Send messages");
-        Console.WriteLine("4 - View report");
-        Console.WriteLine("5 - Exit");
-    }
-
-    public async Task AddMessage()
+    private async Task AddMessage()
     {
         var message = ReadNewMessageFromConsole();
 
@@ -63,7 +51,7 @@ public class UserInterface(MessageManager messageManager) : IUserInterface
         Console.ReadKey();
     }
 
-    public async Task DeleteMessage()
+    private async Task DeleteMessage()
     {
         var mobileNumber = ExtendedConsole.ReadString("Enter the mobile number: ");
         var date = ExtendedConsole.ReadDate("Enter the date: ", DateTime.MinValue , DateTime.Now.Date);
@@ -81,7 +69,7 @@ public class UserInterface(MessageManager messageManager) : IUserInterface
         Console.ReadKey();
     }
 
-    public async Task SendMessages()
+    private async Task SendMessages()
     {
         var today = DateTime.Now.Date;
 
@@ -91,7 +79,7 @@ public class UserInterface(MessageManager messageManager) : IUserInterface
         Console.ReadKey();
     }
 
-    public async Task ViewReport()
+    private async Task ViewReport()
     {
         var date = ExtendedConsole.ReadDate("Enter the date: ", DateTime.MinValue, DateTime.Now.Date);
 

@@ -6,7 +6,7 @@ public class MessageManager(IMessageSenderFactory messageSenderFactory, IJsonUti
     private const string LOG_DIRECTORY = "Logs";
     private const string REPORT_DIRECTORY = "Reports";
 
-    private readonly string _projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName;
+    private static readonly string _projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory())!.Parent!.Parent!.FullName;
     private readonly IMessageSenderFactory _messageSenderFactory = messageSenderFactory;
     private readonly IJsonUtilities _jsonUtilities = jsonUtilities;
 

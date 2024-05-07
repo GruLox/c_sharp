@@ -4,7 +4,7 @@ namespace Project.Services;
 /// <summary>
 /// Manages the operations related to students, subjects and grades.
 /// </summary>
-public class StudentManager(IConsoleService consoleService, IJsonUtilities jsonUtilities, string studentsFileName, string subjectsFileName)
+public class StudentManager(IConsoleService consoleService, IJsonUtilities jsonUtilities, string studentsFileName, string subjectsFileName) : IStudentManager
 {
     private const string DATA_DIRECTORY = "Data";
     private const int ITEMS_PER_PAGE = 5;
@@ -42,7 +42,6 @@ public class StudentManager(IConsoleService consoleService, IJsonUtilities jsonU
     }
 
     #region Option Handling
-    // returns false if the user selected the exit option
     private void HandleMainMenuOption(MainMenuOption option)
     {
         switch (option)
@@ -58,9 +57,6 @@ public class StudentManager(IConsoleService consoleService, IJsonUtilities jsonU
                 break;
             case MainMenuOption.Exit:
                 _running = false;
-                break;
-            default:
-                Console.WriteLine("Invalid option. Please try again.");
                 break;
         }
     }
