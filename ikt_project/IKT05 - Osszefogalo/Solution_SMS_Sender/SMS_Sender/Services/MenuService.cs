@@ -20,6 +20,7 @@ public class MenuService : IMenuService
         {
             Console.Clear();
 
+            // Display the options with the current selection highlighted
             for (int i = 0; i < options.Length; i++)
             {
                 if (i == currentSelection)
@@ -46,6 +47,7 @@ public class MenuService : IMenuService
 
         } while (keyInfo.Key != ConsoleKey.Enter);
 
+        // Return the selected option
         return (T)Enum.GetValues(typeof(T)).GetValue(currentSelection)!;
     }
 
