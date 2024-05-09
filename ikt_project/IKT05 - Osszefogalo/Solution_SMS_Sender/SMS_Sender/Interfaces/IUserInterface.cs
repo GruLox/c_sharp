@@ -2,5 +2,5 @@
 
 public interface IUserInterface
 {
-    Task Run();
+    Task RunAsync();
 }

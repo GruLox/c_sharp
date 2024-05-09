@@ -2,12 +2,12 @@
 
 public interface IMessageManager
 {
-    Task AddMessage(Message message, DateTime date);
+    Task AddMessageAsync(Message message, DateTime date);
 
-    Task DeleteMessage(string mobileNumber, DateTime date);
+    Task DeleteMessageAsync(string mobileNumber, DateTime date);
 
-    Task SendMessages(DateTime date);
+    Task SendMessagesAsync(DateTime date);
 
-    Task<Report> GetOrGenerateReport(DateTime date);
+    Task<Report> GetOrGenerateReportAsync(DateTime date);
 
 }

@@ -10,7 +10,7 @@ public class MessageManager(IMessageSenderFactory messageSenderFactory, IJsonUti
     private readonly IMessageSenderFactory _messageSenderFactory = messageSenderFactory;
     private readonly IJsonUtilities _jsonUtilities = jsonUtilities;
 
-    public async Task AddMessage(Message message, DateTime date)
+    public async Task AddMessageAsync(Message message, DateTime date)
     {
         if (date < DateTime.Now.Date)
         {
@@ -30,7 +30,7 @@ public class MessageManager(IMessageSenderFactory messageSenderFactory, IJsonUti
         await _jsonUtilities.SaveDataToJSON(messages, fileName);
     }
 
-    public async Task DeleteMessage(string mobileNumber, DateTime date)
+    public async Task DeleteMessageAsync(string mobileNumber, DateTime date)
     {
         if (date > DateTime.Now.Date)
         {
@@ -56,7 +56,7 @@ public class MessageManager(IMessageSenderFactory messageSenderFactory, IJsonUti
         await _jsonUtilities.SaveDataToJSON(messages, fileName);
     }
 
-    public async Task SendMessages(DateTime date)
+    public async Task SendMessagesAsync(DateTime date)
     {
         var fileName = Path.Combine(_projectDirectory, DATA_DIRECTORY, $"messages_{date:yyyy-MM-dd}.json");
 
@@ -73,22 +73,22 @@ public class MessageManager(IMessageSenderFactory messageSenderFactory, IJsonUti
 
         foreach (var message in messages)
         {
-            var response = await SendSMS(message);
+            var response = await SendSMSAsync(message);
 
             if (response.Success)
             {
-                await SaveResponseToLog(response, deliveredLogFileName);
+                await SaveResponseToLogAsync(response, deliveredLogFileName);
                 Console.WriteLine($"Message sent to {message.MobileNumber}.");
             }
             else
             {
-                await SaveResponseToLog(response, notDeliveredLogFileName);
+                await SaveResponseToLogAsync(response, notDeliveredLogFileName);
                 Console.WriteLine($"Message not sent to {message.MobileNumber}.");
             }
         }
     }
 
-    public async Task<Report> GetOrGenerateReport(DateTime date)
+    public async Task<Report> GetOrGenerateReportAsync(DateTime date)
     {
         if (date > DateTime.Now.Date)
         {
@@ -101,7 +101,7 @@ public class MessageManager(IMessageSenderFactory messageSenderFactory, IJsonUti
         // If the report file does not exist, generate a new report
         if (!File.Exists(fileName))
         {
-            report = await GenerateReport(date);
+            report = await GenerateReportAsync(date);
         }
         else
         {
@@ -112,7 +112,7 @@ public class MessageManager(IMessageSenderFactory messageSenderFactory, IJsonUti
         return report;
     }
 
-    private async Task<Report> GenerateReport(DateTime date)
+    private async Task<Report> GenerateReportAsync(DateTime date)
     {
         var notDeliveredLogFileName = Path.Combine(_projectDirectory, LOG_DIRECTORY, $"not_delivered_{date:yyyy-MM-dd}.json");
         var deliveredLogFileName = Path.Combine(_projectDirectory, LOG_DIRECTORY, $"delivered_{date:yyyy-MM-dd}.json");
@@ -146,14 +146,14 @@ public class MessageManager(IMessageSenderFactory messageSenderFactory, IJsonUti
         return report;
     }
 
-    private async Task<MessageSendingResponse> SendSMS(Message message)
+    private async Task<MessageSendingResponse> SendSMSAsync(Message message)
     {
         var messageSender = _messageSenderFactory.GetMessageSender(message.System);
 
         return await messageSender.SendMessageAsync(message);
     }
 
-    private async Task SaveResponseToLog(MessageSendingResponse response, string logFileName)
+    private async Task SaveResponseToLogAsync(MessageSendingResponse response, string logFileName)
     {
         var logs = new List<MessageSendingResponse>();
 

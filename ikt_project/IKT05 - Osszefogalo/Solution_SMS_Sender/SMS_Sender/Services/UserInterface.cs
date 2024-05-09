@@ -5,7 +5,7 @@ public class UserInterface(IMessageManager messageManager, IMenuService menuServ
     private readonly IMessageManager _messageManager = messageManager;
     private readonly IMenuService _menuService = menuService;
 
-    public async Task Run()
+    public async Task RunAsync()
     {
         while (true)
         {
@@ -14,16 +14,16 @@ public class UserInterface(IMessageManager messageManager, IMenuService menuServ
             switch (option)
             {
                 case UserOption.AddNewMessage:
-                    await AddMessage();
+                    await AddMessageAsync();
                     break;
                 case UserOption.DeleteMessage:
-                    await DeleteMessage();
+                    await DeleteMessageAsync();
                     break;
                 case UserOption.SendMessages:
-                    await SendMessages();
+                    await SendMessagesAsync();
                     break;
                 case UserOption.ViewReport:
-                    await ViewReport();
+                    await ViewReportAsync();
                     break;
                 case UserOption.Exit:
                     return;
@@ -31,7 +31,7 @@ public class UserInterface(IMessageManager messageManager, IMenuService menuServ
         }
     }
 
-    private async Task AddMessage()
+    private async Task AddMessageAsync()
     {
         var message = ReadNewMessageFromConsole();
 
@@ -39,7 +39,7 @@ public class UserInterface(IMessageManager messageManager, IMenuService menuServ
 
         try
         {
-            await _messageManager.AddMessage(message, date);
+            await _messageManager.AddMessageAsync(message, date);
             Console.WriteLine("Message added successfully.");
         }
         catch (Exception ex)
@@ -51,14 +51,14 @@ public class UserInterface(IMessageManager messageManager, IMenuService menuServ
         Console.ReadKey();
     }
 
-    private async Task DeleteMessage()
+    private async Task DeleteMessageAsync()
     {
         var mobileNumber = ExtendedConsole.ReadString("Enter the mobile number: ");
         var date = ExtendedConsole.ReadDate("Enter the date: ", DateTime.MinValue , DateTime.Now.Date);
 
         try
         {
-            await _messageManager.DeleteMessage(mobileNumber, date);
+            await _messageManager.DeleteMessageAsync(mobileNumber, date);
         }
         catch (Exception ex)
         {
@@ -69,23 +69,23 @@ public class UserInterface(IMessageManager messageManager, IMenuService menuServ
         Console.ReadKey();
     }
 
-    private async Task SendMessages()
+    private async Task SendMessagesAsync()
     {
         var today = DateTime.Now.Date;
 
-        await _messageManager.SendMessages(today);
+        await _messageManager.SendMessagesAsync(today);
 
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
 
-    private async Task ViewReport()
+    private async Task ViewReportAsync()
     {
         var date = ExtendedConsole.ReadDate("Enter the date: ", DateTime.MinValue, DateTime.Now.Date);
 
         try
         {
-            var report = await _messageManager.GetOrGenerateReport(date);
+            var report = await _messageManager.GetOrGenerateReportAsync(date);
             Console.WriteLine($"Report for {date:yyyy-MM-dd}:");
             Console.WriteLine($"Success: {report.Success}");
             Console.WriteLine("Errors:");
