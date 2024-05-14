@@ -1,8 +1,6 @@
-﻿namespace Feladat_01;
-
-public abstract class Pastry(double basePrice, double quantity) : IPrice
+﻿public abstract class Pastry(double basePrice, double quantity) : IPrice
 {
-    private double BasePrice { get; } = basePrice;
+    protected double BasePrice { get; } = basePrice;
     protected double Quantity { get; set; } = quantity;
 
     public abstract void Taste();

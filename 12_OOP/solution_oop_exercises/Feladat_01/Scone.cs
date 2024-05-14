@@ -1,6 +1,4 @@
-﻿namespace Feladat_01;
-
-public class Scone(double quantity) : Pastry(100, quantity)
+﻿public class Scone(double quantity, double basePrice) : Pastry(basePrice, quantity)
 {
     public override void Taste()
     {
