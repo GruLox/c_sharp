@@ -4,10 +4,10 @@
 
     public static void VehiclesComeThrough(string path)
     {
-        string[] lines = File.ReadAllLines(path);
-        foreach (string line in lines)
+        var lines = File.ReadAllLines(path);
+        foreach (var line in lines)
         {
-            string[] parts = line.Split(';');
+            var parts = line.Split(';');
             if (parts[0] == "robogo")
             {
                 _vehicles.Add(new Scooter(parts[1], int.Parse(parts[2]), int.Parse(parts[3])));
